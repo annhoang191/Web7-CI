@@ -6,4 +6,4 @@ var loadState = {
 	create : function(){
 		Gamefefe.game.state.start('menu');
 	}
-};
+}

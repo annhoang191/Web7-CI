@@ -3,4 +3,4 @@ var bootState = {
 		Gamefefe.physics.startSystem(Phaser.Physics.ARCADE);
 		Gamefefe.start('load');
 	}
-};
+}

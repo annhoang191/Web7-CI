@@ -2,4 +2,4 @@ var winState {
 	create: function(){
 		
 	}
-};
+}

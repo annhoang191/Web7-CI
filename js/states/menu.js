@@ -2,4 +2,4 @@ var menuState = {
 	create : function(){
 
 	}
-};
+}
