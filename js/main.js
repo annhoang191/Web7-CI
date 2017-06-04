@@ -1,11 +1,11 @@
 var Gamefefe = {};
 Gamefefe.configs = {
   GAME_WIDTH  : 2046,
-  GAME_HEIGHT : 1032,
+  GAME_HEIGHT : 700,
   MIN_WIDTH   : 800,
   MIN_HEIGHT  : 500,
   MAX_WIDTH   : 2046,
-  MAX_HEIGHT  : 1400
+  MAX_HEIGHT  : 700
 };
 
 window.onload = function(){
@@ -30,6 +30,9 @@ var preload = function(){
   Gamefefe.game.time.advancedTiming = true;
 
   Gamefefe.game.load.image('background', 'Assets/bg.png');
+
+  Gamefefe.game.load.tilemap('gamemap', 'Assets/Maps/map0.json', null, Phaser.Tilemap.TILED_JSON);
+  Gamefefe.game.load.image('tiles', 'Assets/Tiles/tiles_spritesheet.png');
 }
 /*===============================initialize the game==================*/
 var create = function(){
@@ -39,8 +42,12 @@ var create = function(){
   Gamefefe.background  = Gamefefe.game.add.tileSprite(0,0, Gamefefe.configs.GAME_WIDTH, Gamefefe.configs.GAME_HEIGHT, 'background');
 
   //Create Map
+  Gamefefe.map = Gamefefe.game.add.tilemap('gamemap');
+  Gamefefe.map.addTilesetImage('tiles_spritesheet','tiles');
+  Gamefefe.layer = Gamefefe.map.createLayer(0);
+  Gamefefe.layer.resizeWorld();
 }
 /*==================Update game state each frame==================*/
 var update = function(){
-
+  Gamefefe.background.tilePosition.x += 5;
 }
