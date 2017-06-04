@@ -36,7 +36,7 @@ var preload = function(){
 }
 /*===============================initialize the game==================*/
 var create = function(){
-	Gamefefe.game.physics.startSystem(Phaser.Physics.ARCADE);
+  Gamefefe.game.physics.startSystem(Phaser.Physics.ARCADE);
   Gamefefe.keyboard = Gamefefe.game.input.keyboard;
 
   Gamefefe.background  = Gamefefe.game.add.tileSprite(0,0, Gamefefe.configs.GAME_WIDTH, Gamefefe.configs.GAME_HEIGHT, 'background');
