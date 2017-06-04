@@ -2,7 +2,7 @@ var Gamefefe = {};
 
 Gamefefe.configs = {
   GAME_WIDTH  : 2046,
-  GAME_HEIGHT : 1277,
+  GAME_HEIGHT : 1032,
   MIN_WIDTH   : 800,
   MIN_HEIGHT  : 500,
   MAX_WIDTH   : 2046,
@@ -10,24 +10,33 @@ Gamefefe.configs = {
 };
 
 window.onload = function(){
-   Gamefefe.game = new Phaser.Game(	Gamefefe.configs.GAME_WIDTH, 
-   									Gamefefe.configs.GAME_HEIGHT,
-       								Phaser.AUTO, '', {}, false, false);
-    Gamefefe.game.state.add('boot', bootState);
-    Gamefefe.game.state.add('load', loadState);
-    Gamefefe.game.state.add('menu', menuState);
-    Gamefefe.game.state.add('map1', map1State);
-    Gamefefe.game.state.add('map2', map2State);
-    Gamefefe.game.state.add('win', winState);
+  Gamefefe.game = new Phaser.Game(Gamefefe.configs.GAME_WIDTH,Gamefefe.configs.GAME_HEIGHT,Phaser.AUTO,'',
+    {
+      preload: preload,
+      create: create,
+      update: update
+    }, false, false
+  );
+
 }
 
 /*==================preparations before game starts==================*/
 var preload = function(){
-	
+  Gamefefe.game.scale.minWidth = 320;
+  Gamefefe.game.scale.minHeight = 480;
+  Gamefefe.game.scale.maxWidth = Gamefefe.configs.GAME_WIDTH;
+  Gamefefe.game.scale.maxHeight = Gamefefe.configs.GAME_HEIGHT;
+  Gamefefe.game.scale.pageAlignHorizontally = true;
+  Gamefefe.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+  Gamefefe.game.time.advancedTiming = true;
+
+  //Gamefefe.game.load.atlasJSONHash('assets', 'Assets/assets.png', 'Assets/assets.json');
+  Gamefefe.game.load.image('background', 'Assets/background.png');
 }
 /*===============================initialize the game==================*/
 var create = function(){
-
+	Gamefefe.background = Gamefefe.game.add.tileSprite(0,0,Gamefefe.configs.GAME_WIDTH, Gamefefe.configs.GAME_HEIGHT,'background');
 }
 /*==================Update game state each frame==================*/
 var update = function(){
