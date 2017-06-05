@@ -6,20 +6,25 @@ class PlayerController{
     var walk = this.sprite.animations.add('walk');
     this.sprite.animations.play('walk',25,true);
     Gamefefe.game.camera.follow(this.sprite);
-    this.sprite.body.bounce.y = 0.2;
+    this.sprite.body.bounce.y = 0.5;
     this.sprite.body.gravity.y = 500;
-    this.sprite.body.collideWorldBounds = true;
+    //this.sprite.body.collideWorldBounds = true;
     this.timeSinceLastJump=0;
-    this.timeSinceLastMove=0
+    this.timeSinceLastMove=0;
+
+
   }
 
   update(){
       this.timeSinceLastJump += Gamefefe.game.time.physicsElapsed;
       this.timeSinceLastMove+=Gamefefe.game.time.physicsElapsed;
       if(Gamefefe.keyboard.isDown(this.configs.jump)
-          && this.timeSinceLastJump > 0.4
+          && this.timeSinceLastJump > 0.3
         ){
-          this.sprite.y-=80;
+            if (this.sprite.body.onFloor())
+          {
+             this.sprite.body.velocity.y = -350;
+          }
         this.timeSinceLastJump = 0;
       }
       if(Gamefefe.keyboard.isDown(this.configs.right)
@@ -37,6 +42,8 @@ class PlayerController{
     else{
          this.sprite.body.velocity.x = 0;
     }
+    Gamefefe.game.physics.arcade.collide(this.sprite, Gamefefe.groundlayer);
+
 
 
   }
