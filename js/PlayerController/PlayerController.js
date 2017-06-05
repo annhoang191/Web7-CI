@@ -3,6 +3,7 @@ class PlayerController{
     this.sprite = Gamefefe.game.add.sprite(x, y,spriteName);
     this.configs = configs;
     Gamefefe.game.physics.arcade.enable(this.sprite);
+    this.sprite.body.enable = true;
     var walk = this.sprite.animations.add('walk');
     this.sprite.animations.play('walk',25,true);
     Gamefefe.game.camera.follow(this.sprite);

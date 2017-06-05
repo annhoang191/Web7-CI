@@ -36,61 +36,52 @@ var preload = function(){
   Gamefefe.game.scale.maxHeight = Gamefefe.configs.MAX_HEIGHT;
   Gamefefe.game.scale.pageAlignHorizontally = true;
   Gamefefe.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+  //Load audio
+  Gamefefe.game.load.audio('theme', ['Assets/Audio/main_theme.mp3', 'Assets/Audio/main_theme.ogg']);
 
   Gamefefe.game.time.advancedTiming = true;
   //Gamefefe.game.load.image('background', 'Assets/bg.png');
- Gamefefe.game.load.tilemap('gamemap', 'Assets/Maps/map11.json', null, Phaser.Tilemap.TILED_JSON);
- Gamefefe.game.load.image('tiles', 'Assets/Maps/tile1.png');
+  Gamefefe.game.load.tilemap('gamemap', 'Assets/Maps/mapbeta.json', null, Phaser.Tilemap.TILED_JSON);
+  Gamefefe.game.load.image('tiles', 'Assets/Tiles/tiles_spritesheet.png');
  Gamefefe.game.load.atlasJSONHash('player1Walk', 'Assets/Player/p1_walk/p1_walk.png', 'Assets/Player/p1_walk/p1_walk.json');
   Gamefefe.game.load.spritesheet('fly', 'Assets/Enemies/flyFly0.png', 74, 34);
-  //Gamefefe.game.load.atlasJSONHash('fly', 'Assets/Enemies/flyFly.png', 'Assets/Enemies/enemies_spritesheet.txt');
-
 }
-var map;
-var layer;
 
 /*===============================initialize the game==================*/
 var create = function(){
+   Gamefefe.music = Gamefefe.game.add.audio('theme');
+   Gamefefe.music.loopFull();
+   //Start the Arcade Physics systems
+   Gamefefe.game.physics.startSystem(Phaser.Physics.ARCADE);
+   Gamefefe.keyboard = Gamefefe.game.input.keyboard;
 
-    //Start the Arcade Physics systems
-
-    Gamefefe.game.physics.startSystem(Phaser.Physics.ARCADE);
-    Gamefefe.keyboard = Gamefefe.game.input.keyboard;
-
-   //Gamefefe.background  = Gamefefe.game.add.tileSprite(0,0, Gamefefe.configs.GAME_WIDTH, Gamefefe.configs.GAME_HEIGHT, 'background');
    Gamefefe.game.stage.backgroundColor = '#c6e2ff';
+
    //Create Map
    Gamefefe.map = Gamefefe.game.add.tilemap('gamemap');
-   Gamefefe.map.addTilesetImage('tile1','tiles');
-   Gamefefe.backgroundlayer = Gamefefe.map.createLayer('BackgroundLayer');
-   Gamefefe.groundlayer = Gamefefe.map.createLayer('GroundLayer');
-   Gamefefe.map.setCollisionBetween(1, 100, true, 'GroundLayer');
-   Gamefefe.groundlayer.resizeWorld();
+   Gamefefe.map.addTilesetImage('tiles_spritesheet','tiles');
+   Gamefefe.backgroundLayer = Gamefefe.map.createLayer('backgroundLayer');
+   Gamefefe.groundLayer = Gamefefe.map.createLayer('groundLayer');
+   Gamefefe.map.setCollisionBetween(1, 1000, true, 'groundLayer');
+   Gamefefe.groundLayer.resizeWorld();
 
    Gamefefe.players =[];
    Gamefefe.players.push(
        new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL)
    );
     Gamefefe.cursors = Gamefefe.game.input.keyboard.createCursorKeys();
-
     Gamefefe.enemies =[];
     Gamefefe.enemies.push(new FlyController(600,350,'fly'));
-
-
 
 }
 /*==================Update game state each frame==================*/
 var update = function(){
-  //Gamefefe.background.tilePosition.x += 5;
+  //update player
   for(var player of Gamefefe.players){
     player.update();
-
-
   }
   for (var enemy of Gamefefe.enemies){
       enemy.update();
-
   }
-
 
 }
