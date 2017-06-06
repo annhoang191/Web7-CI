@@ -56,9 +56,11 @@ var preload = function(){
   Gamefefe.game.load.spritesheet('swim','Assets/Enemies/fishSwim.png',66,43);
   Gamefefe.game.load.spritesheet('walk','Assets/Enemies/slimeWalk.png',51,28);
   Gamefefe.game.load.spritesheet('crawl','Assets/Enemies/snailCrawl.png',57,31);
+  Gamefefe.game.load.image('bronze','Assets/Items/coinBronze.png');
   Gamefefe.game.load.image('hurt','Assets/Player/p1_hurt.png');
   Gamefefe.game.load.image('spikes','Assets/Items/spike.png');
   Gamefefe.game.load.spritesheet('door','Assets/Items/door.png',70,140);
+
 
 }
 
@@ -83,6 +85,7 @@ var create = function(){
    Gamefefe.enemyGroup = Gamefefe.game.add.physicsGroup();
    Gamefefe.playerGroup = Gamefefe.game.add.physicsGroup();
    Gamefefe.doorGroup = Gamefefe.game.add.physicsGroup();
+   Gamefefe.coinGroup = Gamefefe.game.add.physicsGroup();
 
    Gamefefe.players =[];
    Gamefefe.players.push(
@@ -98,8 +101,11 @@ var create = function(){
     Gamefefe.enemies.push(new SnailController(3000,400,'crawl'));
 
     Gamefefe.items.traps.push(new TrapController(3100,0,'spikes'));
-    Gamefefe.items.doors.push(new DoorController(4827, 183,'door'));
+    Gamefefe.items.doors.push(new DoorController(6927, 113,'door'));
 
+    for (let i=0;i<10;i++){
+        Gamefefe.items.coins.push(new CoinController(630+i*80, 323 ,'bronze'));
+    }
 }
 /*==================Update game state each frame==================*/
 var update = function(){
@@ -117,10 +123,21 @@ var update = function(){
   for (var door of Gamefefe.items.doors){
       door.update();
   }
+  for (var coin of Gamefefe.items.coins){
+      coin.update();
+  }
+
   Gamefefe.game.physics.arcade.overlap(
     Gamefefe.playerGroup,
     Gamefefe.enemyGroup,
     onHit
+  );
+  Gamefefe.game.physics.arcade.overlap(
+    Gamefefe.playerGroup,
+    Gamefefe.coinGroup,
+    function(playerSprite, coinSprite){
+        coinSprite.kill();
+    }
   );
   Gamefefe.game.physics.arcade.overlap(
     Gamefefe.playerGroup,
@@ -133,7 +150,7 @@ var update = function(){
 
 }
 
-var onHit= function(player){
 
+var onHit= function(player){
     player.kill();
 }
