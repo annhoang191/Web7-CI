@@ -6,16 +6,25 @@ Gamefefe.configs = {
   MIN_HEIGHT  : 500,
   MAX_WIDTH   : 2046,
   MAX_HEIGHT  : 700,
-  GAME_SCORE  : 0,
+  BACKGROUND_SPEED  : 5,
   PLAYER_CONTROL  : {
-    lives         : 3,
     jump          : Phaser.Keyboard.SPACEBAR,
     left          : Phaser.Keyboard.LEFT,
     right         : Phaser.Keyboard.RIGHT
   }
 };
-Gamefefe.moveRight={};
-Gamefefe.moveRight.fly=true;
+Gamefefe.moveRight={
+    fly: true,
+    swim: false,
+    walk: true,
+    crawl:false
+};
+Gamefefe.items={
+    traps: [],
+    coins: [],
+    doors:[]
+};
+
 
 window.onload = function(){
   Gamefefe.game = new Phaser.Game(Gamefefe.configs.GAME_WIDTH,Gamefefe.configs.GAME_HEIGHT,Phaser.AUTO,'',
@@ -35,32 +44,34 @@ var preload = function(){
   Gamefefe.game.scale.maxHeight = Gamefefe.configs.MAX_HEIGHT;
   Gamefefe.game.scale.pageAlignHorizontally = true;
   Gamefefe.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-  Gamefefe.game.time.advancedTiming = true;
   //Load audio
   Gamefefe.game.load.audio('theme', ['Assets/Audio/main_theme.mp3', 'Assets/Audio/main_theme.ogg']);
-  Gamefefe.game.load.audio('jumpsound', ['Assets/Audio/jump.mp3', 'Assets/Audio/jump.ogg']);
-  /*Cac anh chi em load them sfx nhe, mot file audio nhung co 2 format la mp3 va ogg*/
 
-  //Load image and sprite
-  Gamefefe.game.load.tilemap('gamemap', 'Assets/Maps/mapLevel1.json', null, Phaser.Tilemap.TILED_JSON);
+  Gamefefe.game.time.advancedTiming = true;
+  //Gamefefe.game.load.image('background', 'Assets/bg.png');
+  Gamefefe.game.load.tilemap('gamemap', 'Assets/Maps/mapbeta2.json', null, Phaser.Tilemap.TILED_JSON);
   Gamefefe.game.load.image('tiles', 'Assets/Tiles/tiles_spritesheet.png');
-  Gamefefe.game.load.image('coins', 'Assets/Items/coinGold.png');
-  Gamefefe.game.load.image('spikes', 'Assets/Items/spikes.png');
-  Gamefefe.game.load.image('cloud1', 'Assets/Items/cloud1.png');
-  Gamefefe.game.load.image('cloud2', 'Assets/Items/cloud2.png');
-  Gamefefe.game.load.image('cloud3', 'Assets/Items/cloud3.png');
-  Gamefefe.game.load.atlasJSONHash('player1Walk', 'Assets/Player/p1_walk/p1_walk.png', 'Assets/Player/p1_walk/p1_walk.json');
-  Gamefefe.game.load.spritesheet('fly', 'Assets/Enemies/flyFly0.png', 74, 34);
+ Gamefefe.game.load.atlasJSONHash('player1Walk', 'Assets/Player/p1_walk/p1_walk.png', 'Assets/Player/p1_walk/p1_walk.json');
+  Gamefefe.game.load.spritesheet('fly', 'Assets/Enemies/flyFly0.png', 74, 33);
+  Gamefefe.game.load.spritesheet('swim','Assets/Enemies/fishSwim.png',66,43);
+  Gamefefe.game.load.spritesheet('walk','Assets/Enemies/slimeWalk.png',51,28);
+  Gamefefe.game.load.spritesheet('crawl','Assets/Enemies/snailCrawl.png',57,31);
+  Gamefefe.game.load.image('hurt','Assets/Player/p1_hurt.png');
+  Gamefefe.game.load.image('spikes','Assets/Items/spike.png');
+  Gamefefe.game.load.spritesheet('door','Assets/Items/door.png',70,140);
+
 }
 
 /*===============================initialize the game==================*/
 var create = function(){
    Gamefefe.music = Gamefefe.game.add.audio('theme');
    Gamefefe.music.loopFull();
+   //Start the Arcade Physics systems
    Gamefefe.game.physics.startSystem(Phaser.Physics.ARCADE);
    Gamefefe.keyboard = Gamefefe.game.input.keyboard;
 
    Gamefefe.game.stage.backgroundColor = '#c6e2ff';
+
    //Create Map
    Gamefefe.map = Gamefefe.game.add.tilemap('gamemap');
    Gamefefe.map.addTilesetImage('tiles_spritesheet','tiles');
@@ -68,42 +79,61 @@ var create = function(){
    Gamefefe.groundLayer = Gamefefe.map.createLayer('groundLayer');
    Gamefefe.map.setCollisionBetween(1, 1000, true, 'groundLayer');
    Gamefefe.groundLayer.resizeWorld();
-   //Add clouds in background
-   Gamefefe.clouds = []
-   Gamefefe.clouds.push(Gamefefe.game.add.sprite(300,100, 'cloud1'));
-   Gamefefe.clouds.push(Gamefefe.game.add.sprite(800,50, 'cloud1'));
-   Gamefefe.clouds.push(Gamefefe.game.add.sprite(1000,150, 'cloud2'));
-   Gamefefe.clouds.push(Gamefefe.game.add.sprite(1500,100, 'cloud3'));
-   Gamefefe.clouds.push(Gamefefe.game.add.sprite(7000,100, 'cloud3'));
-   //Display score text
-   var text = 'score:';
-   Gamefefe.note = Gamefefe.game.add.text(10, 10, '', {
-    font: 'bold 40pt Arial',
-    fill : 'white',
-    stroke : 'black',
-    strokeThickness : 4
-  });
-  Gamefefe.note.setText(text);
-  Gamefefe.note.fixedToCamera = true;
 
-   //Create player - enemies - traps
+   Gamefefe.enemyGroup = Gamefefe.game.add.physicsGroup();
+   Gamefefe.playerGroup = Gamefefe.game.add.physicsGroup();
+   Gamefefe.doorGroup = Gamefefe.game.add.physicsGroup();
+
    Gamefefe.players =[];
-   Gamefefe.enemies =[];
-   Gamefefe.traps   =[];
-   //Create player
    Gamefefe.players.push(
        new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL)
    );
     Gamefefe.cursors = Gamefefe.game.input.keyboard.createCursorKeys();
-    Gamefefe.enemies.push(new FlyController(600,150,'fly'));
+    Gamefefe.enemies =[];
+    Gamefefe.enemies.push(new FlyController(600,250,'fly'));
+    Gamefefe.enemies.push(new FlyController(1800,200,'fly'));
+    Gamefefe.enemies.push(new FlyController(3000,220,'fly'));
+    Gamefefe.enemies.push(new FishController(200,600,'swim'));
+    Gamefefe.enemies.push(new SlimeController(2500,200,'walk'));
+    Gamefefe.enemies.push(new SnailController(3000,400,'crawl'));
+
+    Gamefefe.items.traps.push(new TrapController(3100,0,'spikes'));
+    Gamefefe.items.doors.push(new DoorController(4827, 183,'door'));
+
 }
 /*==================Update game state each frame==================*/
 var update = function(){
   //update player
   for(var player of Gamefefe.players){
     player.update();
+
   }
   for (var enemy of Gamefefe.enemies){
       enemy.update();
   }
+  for (var trap of Gamefefe.items.traps){
+      trap.update();
+  }
+  for (var door of Gamefefe.items.doors){
+      door.update();
+  }
+  Gamefefe.game.physics.arcade.overlap(
+    Gamefefe.playerGroup,
+    Gamefefe.enemyGroup,
+    onHit
+  );
+  Gamefefe.game.physics.arcade.overlap(
+    Gamefefe.playerGroup,
+    Gamefefe.doorGroup,
+    function(){
+        door.open();
+
+    }
+  );
+
+}
+
+var onHit= function(player){
+
+    player.kill();
 }
