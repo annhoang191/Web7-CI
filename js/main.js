@@ -22,8 +22,10 @@ Gamefefe.moveRight={
 Gamefefe.items={
     traps: [],
     coins: [],
-    doors:[]
+    doors: []
+    weights: []
 };
+Gamefefe.xPosition =0;
 
 
 window.onload = function(){
@@ -60,6 +62,7 @@ var preload = function(){
   Gamefefe.game.load.image('hurt','Assets/Player/p1_hurt.png');
   Gamefefe.game.load.image('spikes','Assets/Items/spike.png');
   Gamefefe.game.load.spritesheet('door','Assets/Items/door.png',70,140);
+  Gamefefe.game.load.spritesheet('weight','Assets/Items/weight.png',70,140);
 
 
 }
@@ -100,12 +103,14 @@ var create = function(){
     Gamefefe.enemies.push(new SlimeController(2500,200,'walk'));
     Gamefefe.enemies.push(new SnailController(3000,400,'crawl'));
 
-    Gamefefe.items.traps.push(new TrapController(3100,0,'spikes'));
+    Gamefefe.items.traps.push(new TrapController(2350, 533,'spikes'));
     Gamefefe.items.doors.push(new DoorController(6927, 113,'door'));
-
+    Gamefefe.items.weights.push(new WeightController(300, -70,'weight'));
+    Gamefefe.items.weights.push(new WeightController(6830, -70,'weight'));
     for (let i=0;i<10;i++){
         Gamefefe.items.coins.push(new CoinController(630+i*80, 323 ,'bronze'));
     }
+
 }
 /*==================Update game state each frame==================*/
 var update = function(){
@@ -126,12 +131,23 @@ var update = function(){
   for (var coin of Gamefefe.items.coins){
       coin.update();
   }
+  for(var weight of Gamefefe.items.weights){
+      weight.playerComing(Gamefefe.xPosition);
+  }
 
   Gamefefe.game.physics.arcade.overlap(
     Gamefefe.playerGroup,
     Gamefefe.enemyGroup,
     function(playerSprite,enemySprite){
-        playerSprite.kill();
+
+        setTimeout(function(){
+            playerSprite.loadTexture('hurt', 0, false),1000
+        });
+        playerSprite.kill()
+       Gamefefe.players.push(
+       new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL)
+   );
+
     }
   );
   Gamefefe.game.physics.arcade.overlap(
