@@ -130,7 +130,9 @@ var update = function(){
   Gamefefe.game.physics.arcade.overlap(
     Gamefefe.playerGroup,
     Gamefefe.enemyGroup,
-    onHit
+    function(playerSprite,enemySprite){
+        playerSprite.kill();
+    }
   );
   Gamefefe.game.physics.arcade.overlap(
     Gamefefe.playerGroup,
@@ -148,9 +150,4 @@ var update = function(){
     }
   );
 
-}
-
-
-var onHit= function(player){
-    player.kill();
 }
