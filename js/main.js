@@ -22,7 +22,7 @@ Gamefefe.moveRight={
 Gamefefe.items={
     traps: [],
     coins: [],
-    doors: []
+    doors:[],
     weights: []
 };
 Gamefefe.xPosition =0;
@@ -144,8 +144,7 @@ var update = function(){
             playerSprite.loadTexture('hurt', 0, false),1000
         });
         playerSprite.kill()
-       Gamefefe.players.push(
-       new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL)
+        Gamefefe.players.push(new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL)
    );
 
     }
