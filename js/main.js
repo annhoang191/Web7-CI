@@ -19,6 +19,8 @@ window.onload = function(){
   Gamefefe.game.state.add('boot', bootState);
   Gamefefe.game.state.add('load', loadState);
   Gamefefe.game.state.add('menu', menuState);
-  Gamefefe.game.state.add('play', playState);
+  Gamefefe.game.state.add('overview', overviewState);
+  Gamefefe.game.state.add('level1', level1State);
+  Gamefefe.game.state.add('level2', level2State);
   Gamefefe.game.state.start('boot');
 }

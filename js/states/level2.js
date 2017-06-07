@@ -1,6 +1,6 @@
-var playState={
+var level2State={
 	preload: function(){
-	    Gamefefe.game.load.tilemap('gamemap', 'Assets/Maps/mapLevel1.json', null, Phaser.Tilemap.TILED_JSON);
+	    Gamefefe.game.load.tilemap('gamemap', 'Assets/Maps/mapLevel2.json', null, Phaser.Tilemap.TILED_JSON);
     	Gamefefe.game.load.image('tiles', 'Assets/Tiles/tiles_spritesheet.png');
     	Gamefefe.game.load.atlasJSONHash('player1Walk', 'Assets/Player/p1_walk/p1_walk.png', 'Assets/Player/p1_walk/p1_walk.json');
     	Gamefefe.game.load.spritesheet('fly', 'Assets/Enemies/flyFly0.png', 74, 33);
@@ -32,7 +32,7 @@ var playState={
 		Gamefefe.xPosition =0;
 
    		//Create Map
-   		Gamefefe.game.stage.backgroundColor = '#c6e2ff';
+   		Gamefefe.game.stage.backgroundColor = '#c5c0ff';
    		Gamefefe.map = Gamefefe.game.add.tilemap('gamemap');
    		Gamefefe.map.addTilesetImage('tiles_spritesheet','tiles');
    		Gamefefe.backgroundLayer = Gamefefe.map.createLayer('backgroundLayer');
@@ -111,5 +111,5 @@ var playState={
         		door.open();
 			}
   		);  	
-	}
+	}	
 }

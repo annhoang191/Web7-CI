@@ -17,7 +17,7 @@ var menuState={
       	});
       	Gamefefe.note.setText(text);
     	Gamefefe.note.fixedToCamera = true;
-   		Gamefefe.playButton = this.game.add.button(1000,450,"play",this.start,this);
+   		Gamefefe.playButton = this.game.add.button(1000,450,'play',this.start,this);
    		Gamefefe.playButton.fixedToCamera = true;
     	Gamefefe.playButton.anchor.setTo(0.5);
     	Gamefefe.playButton.scale.setTo(0.3);
@@ -30,6 +30,6 @@ var menuState={
 
   	start: function(){
   		console.log('ready to play');
-		Gamefefe.game.state.start("play");
+		  Gamefefe.game.state.start("overview");
 	}
 }
