@@ -7,13 +7,15 @@ var level2State={
     	Gamefefe.game.load.spritesheet('swim','Assets/Enemies/fishSwim.png',66,43);
     	Gamefefe.game.load.spritesheet('walk','Assets/Enemies/slimeWalk.png',51,28);
     	Gamefefe.game.load.spritesheet('crawl','Assets/Enemies/snailCrawl.png',57,31);
+      Gamefefe.game.load.image('block', 'Assets/Enemies/blockerMad.png', 51,51);
     	Gamefefe.game.load.image('bronze','Assets/Items/coinBronze.png');
     	Gamefefe.game.load.image('hurt','Assets/Player/p1_hurt.png');
     	Gamefefe.game.load.image('spikes','Assets/Items/spike.png');
     	Gamefefe.game.load.spritesheet('door','Assets/Items/door.png',70,140);
     	Gamefefe.game.load.spritesheet('weight','Assets/Items/weight.png',70,140);
-    	Gamefefe.game.load.audio('theme', ['Assets/Audio/main_theme.mp3', 'Assets/Audio/main_theme.ogg']);
+    	Gamefefe.game.load.audio('theme2', ['Assets/Audio/main_theme2.mp3', 'Assets/Audio/main_theme2.ogg']);
    		Gamefefe.game.load.image('play', 'Assets/play_button.png');	
+
 	},
 	create: function(){
    		Gamefefe.keyboard = Gamefefe.game.input.keyboard;
@@ -30,7 +32,8 @@ var level2State={
     		weights: []
 		};
 		Gamefefe.xPosition =0;
-
+      Gamefefe.music = Gamefefe.game.add.audio('theme2');
+      Gamefefe.music.loopFull(0.6);
    		//Create Map
    		Gamefefe.game.stage.backgroundColor = '#c5c0ff';
    		Gamefefe.map = Gamefefe.game.add.tilemap('gamemap');
@@ -94,7 +97,9 @@ var level2State={
             	playerSprite.loadTexture('hurt', 0, false),1000
         		});
         		playerSprite.kill()
-        		Gamefefe.players.push(new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL));
+            Gamefefe.game.state.start('lost');
+            Gamefefe.music.destroy();            
+        		//Gamefefe.players.push(new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL));
 			}
   		);
   		Gamefefe.game.physics.arcade.overlap(
@@ -109,6 +114,8 @@ var level2State={
     		Gamefefe.doorGroup,
     		function(){
         		door.open();
+            Gamefefe.game.state.start('win');
+            Gamefefe.music.destroy();            
 			}
   		);  	
 	}	

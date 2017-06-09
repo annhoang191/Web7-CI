@@ -15,7 +15,7 @@ var menuState={
         	stroke : 'black',
         	strokeThickness : 3
       	});
-      	Gamefefe.note.setText(text);
+      Gamefefe.note.setText(text);
     	Gamefefe.note.fixedToCamera = true;
    		Gamefefe.playButton = this.game.add.button(1000,450,'play',this.start,this);
    		Gamefefe.playButton.fixedToCamera = true;
@@ -23,8 +23,6 @@ var menuState={
     	Gamefefe.playButton.scale.setTo(0.3);
 
 
-   		Gamefefe.music = Gamefefe.game.add.audio('theme');
-   		Gamefefe.music.loopFull();
    		console.log('menu');   		
 	},
 

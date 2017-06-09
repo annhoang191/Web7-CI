@@ -1,5 +1,6 @@
 var Gamefefe = {};
 Gamefefe.configs = {
+  player_Health: 3,
   GAME_WIDTH  : 1900,
   GAME_HEIGHT : 700,
   MIN_WIDTH   : 800,
@@ -22,5 +23,7 @@ window.onload = function(){
   Gamefefe.game.state.add('overview', overviewState);
   Gamefefe.game.state.add('level1', level1State);
   Gamefefe.game.state.add('level2', level2State);
+  Gamefefe.game.state.add('level3', level3State);
+  Gamefefe.game.state.add('lost', lostState);
   Gamefefe.game.state.start('boot');
 }

@@ -1,6 +1,6 @@
-var level1State={
+var level3State={
 	preload: function(){
-	    Gamefefe.game.load.tilemap('gamemap', 'Assets/Maps/mapLevel1.json', null, Phaser.Tilemap.TILED_JSON);
+	    Gamefefe.game.load.tilemap('gamemap', 'Assets/Maps/mapLevel3.json', null, Phaser.Tilemap.TILED_JSON);
     	Gamefefe.game.load.image('tiles', 'Assets/Tiles/tiles_spritesheet.png');
     	Gamefefe.game.load.atlasJSONHash('player1Walk', 'Assets/Player/p1_walk/p1_walk.png', 'Assets/Player/p1_walk/p1_walk.json');
     	Gamefefe.game.load.spritesheet('fly', 'Assets/Enemies/flyFly0.png', 74, 33);
@@ -12,9 +12,8 @@ var level1State={
     	Gamefefe.game.load.image('spikes','Assets/Items/spike.png');
     	Gamefefe.game.load.spritesheet('door','Assets/Items/door.png',70,140);
     	Gamefefe.game.load.spritesheet('weight','Assets/Items/weight.png',70,140);
-    	Gamefefe.game.load.audio('theme', ['Assets/Audio/main_theme.mp3', 'Assets/Audio/main_theme.ogg']);
+    	Gamefefe.game.load.audio('theme2', ['Assets/Audio/main_theme.mp3', 'Assets/Audio/main_theme.ogg']);
    		Gamefefe.game.load.image('play', 'Assets/play_button.png');	
-      	Gamefefe.game.load.image('heart', 'Assets/HUD/hud_heartFull3.png');
 	},
 	create: function(){
    		Gamefefe.keyboard = Gamefefe.game.input.keyboard;
@@ -31,9 +30,10 @@ var level1State={
     		weights: []
 		};
 		Gamefefe.xPosition =0;
-
+      Gamefefe.music = Gamefefe.game.add.audio('theme2');
+      Gamefefe.music.loopFull(0.6);
    		//Create Map
-   		Gamefefe.game.stage.backgroundColor = '#c6e2ff';
+   		Gamefefe.game.stage.backgroundColor = '#c5c0ff';
    		Gamefefe.map = Gamefefe.game.add.tilemap('gamemap');
    		Gamefefe.map.addTilesetImage('tiles_spritesheet','tiles');
    		Gamefefe.backgroundLayer = Gamefefe.map.createLayer('backgroundLayer');
@@ -45,9 +45,6 @@ var level1State={
    		Gamefefe.doorGroup = Gamefefe.game.add.physicsGroup();
    		Gamefefe.coinGroup = Gamefefe.game.add.physicsGroup();
 
-      Gamefefe.music = Gamefefe.game.add.audio('theme');
-      Gamefefe.music.loopFull(0.6);
-
    		Gamefefe.players =[];
    		Gamefefe.players.push(
        		new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL)
@@ -57,29 +54,25 @@ var level1State={
     	Gamefefe.enemies.push(new FlyController(600,250,'fly'));
     	Gamefefe.enemies.push(new FlyController(1800,200,'fly'));
     	Gamefefe.enemies.push(new FlyController(3000,220,'fly'));
-    	Gamefefe.enemies.push(new FishController(200,600,'swim'));
+    	Gamefefe.enemies.push(new FishController(4040,650,'swim'));
     	Gamefefe.enemies.push(new SlimeController(2500,200,'walk'));
     	Gamefefe.enemies.push(new SnailController(3000,400,'crawl'));
-      
-    	Gamefefe.items.traps.push(new TrapController(2350, 533,'spikes'));
-    	Gamefefe.items.doors.push(new DoorController(6927, 113,'door'));
+
+    	Gamefefe.items.traps.push(new TrapController(11080, 603,'spikes'));
+    	Gamefefe.items.doors.push(new DoorController(11827, -253,'door'));
     	Gamefefe.items.weights.push(new WeightController(300, -70,'weight'));
     	Gamefefe.items.weights.push(new WeightController(6830, -70,'weight'));
     	for (let i=0;i<10;i++){
-        	Gamefefe.items.coins.push(new CoinController(630+i*80, 323 ,'bronze'));
+        	Gamefefe.items.coins.push(new CoinController(640+i*80, 183 ,'bronze'));
     	}
-
-      //add lives
-      Gamefefe.lives = Gamefefe.game.add.group();
+      Gamefefe.items.coins.push(new CoinController(8392, 323, 'bronze'));
+      Gamefefe.items.coins.push(new CoinController(8808, 323, 'bronze'));
+      Gamefefe.items.coins.push(new CoinController(7768, 463, 'bronze'));
+      Gamefefe.items.coins.push(new CoinController(7560, 463, 'bronze'));
+      Gamefefe.items.coins.push(new CoinController(7336, 463, 'bronze'));
       for(let i=0; i<3; i++){
-        Gamefefe.lives.create(240 - (60*i), 90, 'heart');
+        Gamefefe.items.coins.push(new CoinController(8528+i*50, 183, 'bronze'));
       }
-      Gamefefe.lives.fixedToCamera = true;
-      text = Gamefefe.game.add.text(100, 10, 'Lives: ',{
-        font: '60px Arial',
-        fill: '#ffffff'
-      });
-      text.fixedToCamera = true;
 	},
 
 	update: function(){
@@ -109,9 +102,9 @@ var level1State={
 				setTimeout(function(){
             	playerSprite.loadTexture('hurt', 0, false),1000
         		});
-        		playerSprite.kill()
-        		Gamefefe.game.state.start('lost');
-        		Gamefefe.music.destroy();
+        		playerSprite.kill();
+            Gamefefe.game.state.start('lost');
+            Gamefefe.music.destroy();
         		//Gamefefe.players.push(new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL));
 			}
   		);
@@ -128,8 +121,8 @@ var level1State={
     		function(){
         		door.open();
             Gamefefe.game.state.start('win');
-            Gamefefe.music.destroy();
+            Gamefefe.music.destroy();               
 			}
   		);  	
-	}
+	}	
 }
