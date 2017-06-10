@@ -122,7 +122,23 @@ var level3State={
     for (let i=0;i<4;i++){
           Gamefefe.items.coins.push(new CoinController(1224+i*80, 183 ,'gold'));
       }
+    for (let i=0;i<4;i++){
+          Gamefefe.items.coins.push(new CoinController(3681+i*80, 323 ,'silver'));
+      }  
       Gamefefe.items.coins.push(new CoinController(3114,183, 'gold'));
+      Gamefefe.items.coins.push(new CoinController(4545,462, 'gold'));
+      Gamefefe.items.coins.push(new CoinController(4768,462, 'gold'));
+      Gamefefe.items.coins.push(new CoinController(4984,462, 'silver'));
+      Gamefefe.items.coins.push(new CoinController(5160,462, 'gold'));
+      Gamefefe.items.coins.push(new CoinController(7352,462, 'gold'));
+      Gamefefe.items.coins.push(new CoinController(7560,462, 'gold'));
+      Gamefefe.items.coins.push(new CoinController(7760,462, 'gold'));
+      for(let i=0; i<3; i++){
+        Gamefefe.items.coins.push(new CoinController(8563 + i*80, 183, 'gold'));
+      }
+      for(let i=0; i<4; i++){
+        Gamefefe.items.coins.push(new CoinController(12208 + i*80, 463, 'gold'));
+      }
     for (let m=0;m<3;m++){
       Gamefefe.lives.push(new LifeController(1700+55*m,0,'lives'));
     }
