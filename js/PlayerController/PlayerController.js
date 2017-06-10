@@ -8,15 +8,17 @@ class PlayerController{
     //this.sprite.animations.add('hurt');
     this.sprite.animations.play('walk',25,true);
     Gamefefe.game.camera.follow(this.sprite);
-    this.sprite.body.bounce.y = 0;
-    this.sprite.body.gravity.y = 2000;
+    this.sprite.body.bounce.y = 0.2;
+    this.sprite.body.gravity.y = 1000;
     this.sprite.body.collideWorldBounds = true;
+    this.sprite.anchor.x=0;this.sprite.anchor.y=1;
     this.timeSinceLastJump=0;
     this.timeSinceLastMove=0;
-    this.sprite.Health = Gamefefe.configs.player_Health;
   }
 
   update(){
+      Gamefefe.properties.xPosition = this.sprite.body.x;
+      Gamefefe.properties.yPosition = this.sprite.body.y;    
       Gamefefe.game.physics.arcade.collide(this.sprite, Gamefefe.groundLayer);
       this.timeSinceLastJump += Gamefefe.game.time.physicsElapsed;
       this.timeSinceLastMove+=Gamefefe.game.time.physicsElapsed;
@@ -27,7 +29,7 @@ class PlayerController{
       if(Gamefefe.keyboard.isDown(this.configs.jump)
           && this.sprite.body.onFloor() && Gamefefe.game.time.now > this.timeSinceLastJump
         ){
-          this.sprite.body.velocity.y=-900;
+          this.sprite.body.velocity.y=-700;
           this.timeSinceLastJump = 250 + Gamefefe.game.time.now;
       }
       if(Gamefefe.keyboard.isDown(this.configs.right)
@@ -40,11 +42,20 @@ class PlayerController{
          && this.timeSinceLastMove > 0.005
       ){
         this.sprite.x-=8;
-      this.timeSinceLastMove = 0;
+        this.timeSinceLastMove = 0;
     }
     else{
          this.sprite.body.velocity.x = 0;
     }
-  }
 
+    if (this.sprite.body.y>600){
+        Gamefefe.players.shift();
+        Gamefefe.isDead=true;
+        for (var life of Gamefefe.lives){
+          life.update();
+        }
+        this.sprite.kill();
+        Gamefefe.players.push(new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL));
+    }
+  }
 }

@@ -20,6 +20,7 @@ window.onload = function(){
   Gamefefe.game.state.add('boot', bootState);
   Gamefefe.game.state.add('load', loadState);
   Gamefefe.game.state.add('menu', menuState);
+  Gamefefe.game.state.add('playerOverview', playerOverview);
   Gamefefe.game.state.add('overview', overviewState);
   Gamefefe.game.state.add('level1', level1State);
   Gamefefe.game.state.add('level2', level2State);
@@ -27,3 +28,29 @@ window.onload = function(){
   Gamefefe.game.state.add('lost', lostState);
   Gamefefe.game.state.start('boot');
 }
+Gamefefe.moveRight={
+    fly: true,
+    swim: false,
+    walk: true,
+    crawl:false
+};
+Gamefefe.items={
+    traps: [],
+    coins: [],
+    doors:[],
+    weight: []
+};
+
+Gamefefe.properties={
+    xPosition:0,
+    yPosition:0,
+    width:72,
+    height:97
+}
+Gamefefe.enemyKill=false;
+Gamefefe.score=[];
+Gamefefe.scoreMark=[];
+Gamefefe.scoreUp = false;
+Gamefefe.isDead = false;
+Gamefefe.lives=[];
+Gamefefe.timeDead=0;
