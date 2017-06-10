@@ -24,6 +24,8 @@ var level2State={
     Gamefefe.game.load.image('soil1','Assets/Tiles/boxCoinAlt_disabled.png');
   },
   create: function(){
+      Gamefefe.music = Gamefefe.game.add.audio('theme2');
+      Gamefefe.music.loopFull();
       Gamefefe.keyboard = Gamefefe.game.input.keyboard;
       Gamefefe.moveRight={
         fly: true,
@@ -53,8 +55,9 @@ var level2State={
       Gamefefe.coinGroup = Gamefefe.game.add.physicsGroup();
 
       Gamefefe.players =[];
+      var playerConstructor = Gamefefe.playerConstructor;
       Gamefefe.players.push(
-          new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL)
+          new playerConstructor(0,0,Gamefefe.configs.PLAYER_CONTROL)
       );
       Gamefefe.cursors = Gamefefe.game.input.keyboard.createCursorKeys();
       Gamefefe.enemies =[];
@@ -167,10 +170,11 @@ var level2State={
             playerSprite.kill();
             Gamefefe.timeDead++;
             if(Gamefefe.players.length<3){
-                  Gamefefe.players.push(new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL));
+                  Gamefefe.players.push(new Gamefefe.playerConstructor(0,0,Gamefefe.configs.PLAYER_CONTROL));
             }
             else
               Gamefefe.game.state.start('lost');
+              Gamefefe.music.destroy();
       }
       );
       Gamefefe.game.physics.arcade.overlap(
