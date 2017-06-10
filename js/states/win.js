@@ -8,6 +8,7 @@ var winState={
 	create: function(){
 		Gamefefe.game.stage.backgroundColor = '#bfe3f9';
 		Gamefefe.game.add.sprite(950,320, 'windude');
+		Gamefefe.music.destroy();
 		Gamefefe.winscore = Gamefefe.game.add.audio('winner');
       	Gamefefe.winscore.play();
 

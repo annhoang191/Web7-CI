@@ -13,15 +13,15 @@ var level3State={
       Gamefefe.game.load.image('hurt','Assets/Player/p1_hurt.png');
       Gamefefe.game.load.image('spikes','Assets/Items/spike.png');
       Gamefefe.game.load.spritesheet('door','Assets/Items/door.png',70,140);
-      Gamefefe.game.load.spritesheet('weight','Assets/Items/weight.png',70,140);
-      Gamefefe.game.load.audio('theme', ['Assets/Audio/main_theme.mp3', 'Assets/Audio/main_theme.ogg']);
+      Gamefefe.game.load.image('weight','Assets/Items/weight.png');
+      Gamefefe.game.load.audio('theme', ['Assets/Audio/main_theme2.mp3', 'Assets/Audio/main_theme2.ogg']);
       Gamefefe.game.load.audio('coin', ['Assets/Audio/coins.mp3', 'Assets/Audio/coins.ogg']);
       Gamefefe.game.load.audio('jump', ['Assets/Audio/jump.mp3', 'Assets/Audio/jump.ogg']);
 
 
       Gamefefe.game.load.image('play', 'Assets/play_button.png');
       Gamefefe.game.load.image('arrow','Assets/Enemies/arrow.png');
-    //Gamefefe.game.load.spritesheet('lion','Assets/Enemies/LionBounce.png',245,130);
+      Gamefefe.game.load.spritesheet('lion','Assets/Enemies/LionBounce.png',245,130);
       Gamefefe.game.load.image('lives','Assets/HUD/hud_heartFull3.png');
       Gamefefe.game.load.atlasJSONHash('numbers','Assets/HUD/numbers.png','Assets/HUD/numbers.json');
       Gamefefe.game.load.image('soil','Assets/Tiles/grassHalfMid.png');
@@ -44,7 +44,8 @@ var level3State={
     Gamefefe.isDead = false;
     Gamefefe.lives=[];
     Gamefefe.timeDead=0;
-        
+    Gamefefe.score=0;
+
     Gamefefe.xPosition =0;
       Gamefefe.music = Gamefefe.game.add.audio('theme');
       Gamefefe.music.loopFull();
@@ -72,6 +73,14 @@ var level3State={
       );
       Gamefefe.cursors = Gamefefe.game.input.keyboard.createCursorKeys();
       Gamefefe.enemies =[];
+
+      Gamefefe.enemies.push(new LionController(9264,-150,'lion'));
+      Gamefefe.enemies.push(new RockController(300, -70,'weight'));
+      Gamefefe.enemies.push(new RockController(6830, -70,'weight'));
+      Gamefefe.enemies.push(new RockController(10920, -70,'weight'));
+      Gamefefe.enemies.push(new RockController(16190, -70,'weight'));
+      Gamefefe.enemies.push(new RockController(15410,-70,'weight' ));
+
       Gamefefe.enemies.push(new FlyController(600,250,'fly'));
       Gamefefe.enemies.push(new FlyController(1800,150,'fly'));
       Gamefefe.enemies.push(new FlyController(9470,180,'fly'));
@@ -79,8 +88,19 @@ var level3State={
       Gamefefe.enemies.push(new FlyController(7430, 150,'fly'));
       Gamefefe.enemies.push(new FlyController(11350, 150,'fly'));
 
+    
+      Gamefefe.enemies.push(new RockController(300, -70,'weight'));
+      Gamefefe.enemies.push(new RockController(6830, -70,'weight'));
+      Gamefefe.enemies.push(new RockController(10920, -70,'weight'));
+      Gamefefe.enemies.push(new RockController(16190, -70,'weight'));
+      Gamefefe.enemies.push(new RockController(15410,-70,'weight' ));
+      Gamefefe.enemies.push(new RockController(16410,-70,'weight' ));
 
-      Gamefefe.enemies.push(new SlimeController(2500,200,'walk'));
+
+
+
+
+      //Gamefefe.enemies.push(new SlimeController(2500,200,'walk'));
       Gamefefe.enemies.push(new SlimeController(4170, 350,'walk'));
       Gamefefe.enemies.push( new SlimeController(7230, 350,'walk'));
       Gamefefe.enemies.push(new SlimeController(16350, 560,'walk'));
@@ -92,16 +112,12 @@ var level3State={
       Gamefefe.enemies.push(new SnailController(11350, 210,'crawl'));
       Gamefefe.enemies.push(new SnailController(17100, 420,'crawl'));
 
+
       Gamefefe.items.traps.push(new TrapController(2350, 533,'spikes'));
       Gamefefe.items.traps.push(new TrapController(5660, 560,'spikes'));
       Gamefefe.items.traps.push(new TrapController(9200, 560,'spikes'));
       Gamefefe.items.traps.push(new TrapController(10600, 420,'spikes'));
       Gamefefe.items.doors.push(new DoorController(20927, 181,'door'));
-      Gamefefe.items.weights.push(new WeightController(300, -70,'weight'));
-      Gamefefe.items.weights.push(new WeightController(6830, -70,'weight'));
-      Gamefefe.items.weights.push(new WeightController(10920, -70,'weight'));
-      Gamefefe.items.weights.push(new WeightController(16190, -70,'weight'));
-      Gamefefe.items.weights.push(new WeightController(15410,-70,'weight' ));
 
       Gamefefe.items.traps.push(new TileController(14420, 440,'soil1'));
       Gamefefe.items.traps.push(new TileController(3500, 500,'soil1'));

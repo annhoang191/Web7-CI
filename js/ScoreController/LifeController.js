@@ -14,7 +14,7 @@ class LifeController{
             if(Gamefefe.timeDead==3){
                 Gamefefe.game.state.start('lost');
             }else{
-                Gamefefe.players[0].setPosition(0,0);
+                Gamefefe.players[0].setPosition(Gamefefe.properties.xPosition,0);
             }
             Gamefefe.isDead=false;
         }

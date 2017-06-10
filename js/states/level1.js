@@ -13,7 +13,7 @@ var level1State={
       Gamefefe.game.load.image('hurt','Assets/Player/p1_hurt.png');
       Gamefefe.game.load.image('spikes','Assets/Items/spike.png');
       Gamefefe.game.load.spritesheet('door','Assets/Items/door.png',70,140);
-      Gamefefe.game.load.spritesheet('weight','Assets/Items/weight.png',70,140);
+      Gamefefe.game.load.image('weight','Assets/Items/weight.png');
       Gamefefe.game.load.audio('theme', ['Assets/Audio/main_theme.mp3', 'Assets/Audio/main_theme.ogg']);
       Gamefefe.game.load.audio('coin', ['Assets/Audio/coins.mp3', 'Assets/Audio/coins.ogg']);
       Gamefefe.game.load.audio('jump', ['Assets/Audio/jump.mp3', 'Assets/Audio/jump.ogg']);
@@ -43,6 +43,7 @@ var level1State={
     Gamefefe.isDead = false;
     Gamefefe.lives=[];
     Gamefefe.timeDead=0;
+    Gamefefe.score=0;
     
     Gamefefe.xPosition =0;
 
@@ -70,11 +71,11 @@ var level1State={
       Gamefefe.players.push(
           new playerConstructor(0,0,Gamefefe.configs.PLAYER_CONTROL)
       );
-      Gamefefe.cursors = Gamefefe.game.input.keyboard.createCursorKeys();
-      Gamefefe.enemies =[];
-      Gamefefe.enemies.push(new FlyController(600,250,'fly'));
-      Gamefefe.enemies.push(new FlyController(1800,150,'fly'));
-      Gamefefe.enemies.push(new FlyController(9470,180,'fly'));
+    Gamefefe.cursors = Gamefefe.game.input.keyboard.createCursorKeys();
+    Gamefefe.enemies =[];
+    Gamefefe.enemies.push(new FlyController(600,250,'fly'));
+    Gamefefe.enemies.push(new FlyController(1800,150,'fly'));
+    Gamefefe.enemies.push(new FlyController(9470,180,'fly'));
     Gamefefe.enemies.push(new FlyController(8660, 170,'fly'));
     Gamefefe.enemies.push(new FlyController(7430, 150,'fly'));
     Gamefefe.enemies.push(new FlyController(11350, 150,'fly'));
@@ -95,16 +96,25 @@ var level1State={
     Gamefefe.enemies.push(new SnailController(11350, 210,'crawl'));
     Gamefefe.enemies.push(new SnailController(17100, 420,'crawl'));
 
+
+    Gamefefe.enemies.push(new LionController(7728,-150,'lion'));
+    //Gamefefe.enemies.push(new ArrowController(820, -150,'arrow'));
+    //Gamefefe.enemies.push(new ArrowController(11940,-150,'arrow'));
+    //Gamefefe.enemies.push(new ArrowController(12800, -150,'arrow'));
+
     Gamefefe.items.traps.push(new TrapController(2350, 533,'spikes'));
     Gamefefe.items.traps.push(new TrapController(5660, 560,'spikes'));
     Gamefefe.items.traps.push(new TrapController(9200, 560,'spikes'));
     Gamefefe.items.traps.push(new TrapController(10600, 420,'spikes'));
     Gamefefe.items.doors.push(new DoorController(20927, 181,'door'));
-    Gamefefe.items.weights.push(new WeightController(300, -70,'weight'));
-    Gamefefe.items.weights.push(new WeightController(6830, -70,'weight'));
-    Gamefefe.items.weights.push(new WeightController(10920, -70,'weight'));
-    Gamefefe.items.weights.push(new WeightController(16190, -70,'weight'));
-    Gamefefe.items.weights.push(new WeightController(15410,-70,'weight' ));
+    Gamefefe.enemies.push(new RockController(300, -70,'weight'));
+    Gamefefe.enemies.push(new RockController(6830, -70,'weight'));
+    Gamefefe.enemies.push(new RockController(10920, -70,'weight'));
+    Gamefefe.enemies.push(new RockController(16190, -70,'weight'));
+    Gamefefe.enemies.push(new RockController(15410,-70,'weight' ));
+
+    Gamefefe.enemies.push(new RockController(16410,-70,'weight' ));
+
 
     Gamefefe.items.traps.push(new TileController(14420, 440,'soil'));
     Gamefefe.items.traps.push(new TileController(3500, 500,'soil'));
@@ -150,12 +160,6 @@ var level1State={
       for (var coin of Gamefefe.items.coins){
           coin.update();
       }
-      for(var weight of Gamefefe.items.weights){
-          weight.playerComing(Gamefefe.xPosition);
-      }
-    /*for (var score of Gamefefe.score){
-      score.update();
-    }*/
     for (var life of Gamefefe.lives){
       life.update();
     }

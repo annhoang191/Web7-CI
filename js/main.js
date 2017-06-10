@@ -53,5 +53,5 @@ Gamefefe.scoreMark=[];
 Gamefefe.scoreUp = false;
 
 
-Gamefefe.score=0;
+//Gamefefe.score=0;
 Gamefefe.scoreText;
