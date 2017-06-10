@@ -53,7 +53,7 @@ var level1State={
       Gamefefe.playerGroup = Gamefefe.game.add.physicsGroup();
       Gamefefe.doorGroup = Gamefefe.game.add.physicsGroup();
       Gamefefe.coinGroup = Gamefefe.game.add.physicsGroup();
-      Gamefefe.music = Gamefefe.
+      
       Gamefefe.players =[];
       var playerConstructor = Gamefefe.playerConstructor;
       Gamefefe.players.push(
