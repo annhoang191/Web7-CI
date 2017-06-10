@@ -143,9 +143,28 @@ var level3State={
       for(let i=0; i<4; i++){
         Gamefefe.items.coins.push(new CoinController(12208 + i*80, 463, 'gold'));
       }
+      for(let i=0; i<6; i++){
+        Gamefefe.items.coins.push(new CoinController(5472 + i*80, 463, 'silver'));
+      }
+      for(let i=0; i<6; i++){
+        Gamefefe.items.coins.push(new CoinController(9488 + i*80, 463, 'silver'));
+      }
+      for(let i=0; i<6; i++){
+        Gamefefe.items.coins.push(new CoinController(19328 + i*80, 533, 'silver'));
+      }
+      for(let i=0; i<6; i++){
+        Gamefefe.items.coins.push(new CoinController(20368 + i*80, 393, 'silver'));
+      }
+
+
+
     for (let m=0;m<3;m++){
-      Gamefefe.lives.push(new LifeController(1700+55*m,0,'lives'));
+      Gamefefe.lives.push(new LifeController(1700+55*80,0,'lives'));
     }
+    for (let m=0;m<6;m++){
+      Gamefefe.lives.push(new LifeController(13392+55*80,393,'lives'));
+    }
+
 
 
   },

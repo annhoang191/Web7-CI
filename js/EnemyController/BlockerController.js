@@ -10,13 +10,13 @@ class BlockerController extends EnemyController{
         if (Gamefefe.properties.xPosition==this.sprite.body.x-300){
             this.sprite.loadTexture('blockerMad');
         }
-        if (Gamefefe.properties.xPosition < this.sprite.body.x + this.sprite.width &&
+        /*if (Gamefefe.properties.xPosition < this.sprite.body.x + this.sprite.width &&
         Gamefefe.properties.xPosition + Gamefefe.properties.width > this.sprite.body.x &&
          Math.round(Gamefefe.properties.yPosition+Gamefefe.properties.height)==Math.round(this.sprite.body.y)){
        this.sprite.kill();
        Gamefefe.enemyKill=true;
        console.log(Gamefefe.enemyKill);
 
-      }
+      }*/
     }
 }

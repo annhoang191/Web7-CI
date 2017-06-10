@@ -9,7 +9,7 @@ class SlimeController extends EnemyController{
     update(){
         Gamefefe.game.physics.arcade.collide(this.sprite, Gamefefe.groundLayer);
 
-            if (Gamefefe.properties.xPosition < this.sprite.body.x + this.sprite.width &&
+            /*if (Gamefefe.properties.xPosition < this.sprite.body.x + this.sprite.width &&
             Gamefefe.properties.xPosition + Gamefefe.properties.width > this.sprite.body.x &&
             Math.round(Gamefefe.properties.yPosition+Gamefefe.properties.height)==Math.round(this.sprite.body.y)){
            this.sprite.kill();
@@ -17,7 +17,7 @@ class SlimeController extends EnemyController{
             console.log(Gamefefe.enemyKill);
 
 
-    }
+    }*/
 
     if (Gamefefe.moveRight.walk){
         this.sprite.scale.setTo(-1,1);
