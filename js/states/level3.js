@@ -74,7 +74,7 @@ var level3State={
       Gamefefe.cursors = Gamefefe.game.input.keyboard.createCursorKeys();
       Gamefefe.enemies =[];
 
-      Gamefefe.enemies.push(new LionController(9264,-150,'lion'));
+      //Gamefefe.enemies.push(new LionController(9264,-150,'lion'));
       Gamefefe.enemies.push(new RockController(300, -70,'weight'));
       Gamefefe.enemies.push(new RockController(6830, -70,'weight'));
       Gamefefe.enemies.push(new RockController(10920, -70,'weight'));
@@ -177,9 +177,7 @@ var level3State={
     for (let m=0;m<3;m++){
       Gamefefe.lives.push(new LifeController(1700+55*80,0,'lives'));
     }
-    for (let m=0;m<6;m++){
-      Gamefefe.lives.push(new LifeController(13392+55*80,393,'lives'));
-    }
+    
 
 
 
