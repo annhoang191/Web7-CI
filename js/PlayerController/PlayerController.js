@@ -58,9 +58,9 @@ class PlayerController{
     if (this.sprite.body.y>600){
 
         Gamefefe.isDead=true;
-        for (var life of Gamefefe.lives){
+        /*for (var life of Gamefefe.lives){
           life.update();
-        }
+        }*/
         
 
     }

@@ -41,6 +41,10 @@ var level3State={
         doors:[],
         weights: []
     };
+    Gamefefe.isDead = false;
+    Gamefefe.lives=[];
+    Gamefefe.timeDead=0;
+        
     Gamefefe.xPosition =0;
       Gamefefe.music = Gamefefe.game.add.audio('theme');
       Gamefefe.music.loopFull();

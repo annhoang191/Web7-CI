@@ -42,6 +42,10 @@ var level2State={
         doors:[],
         weights: []
     };
+    Gamefefe.isDead = false;
+    Gamefefe.lives=[];
+    Gamefefe.timeDead=0;
+    
     Gamefefe.xPosition =0;
     Gamefefe.scoreText=Gamefefe.game.add.text(16,16, 'score: 0', {
         fontSize:'32px',
