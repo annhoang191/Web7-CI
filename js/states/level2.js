@@ -172,8 +172,11 @@ var level2State={
         Gamefefe.playerGroup,
         Gamefefe.coinGroup,
         function(playerSprite, coinSprite,number){
+            Gamefefe.scoreUp=true;
+            for (var score of Gamefefe.score){
+              score.update();
+            }
             coinSprite.kill();
-        Gamefefe.scoreUp=true;
         }
       );
       Gamefefe.game.physics.arcade.overlap(
