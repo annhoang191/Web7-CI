@@ -175,7 +175,7 @@ var level3State={
 
 
     for (let m=0;m<3;m++){
-      Gamefefe.lives.push(new LifeController(1700+55*80,0,'lives'));
+      Gamefefe.lives.push(new LifeController(1700+55*m,0,'lives'));
     }
     
 
