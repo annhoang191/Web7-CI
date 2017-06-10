@@ -11,7 +11,8 @@ class PlayerController{
     this.sprite.body.bounce.y = 0.2;
     this.sprite.body.gravity.y = 1000;
     this.sprite.body.collideWorldBounds = true;
-    this.sprite.anchor.x=0;this.sprite.anchor.y=1;
+    this.sprite.anchor.x=0.5;
+    this.sprite.anchor.y=0.5;
     this.timeSinceLastJump=0;
     this.timeSinceLastMove=0;
   }
