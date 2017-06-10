@@ -1,6 +1,6 @@
 var lostState={
 	preload: function(){
-		Gamefefe.game.load.image('loser', '/Assets/Player/p1_hurt.png');
+		Gamefefe.game.load.image('loser', 'Assets/Player/p1_hurt.png');
 		Gamefefe.game.load.image('back', 'Assets/back_button.png');
 	},
 	create: function(){
