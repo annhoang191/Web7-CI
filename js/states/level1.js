@@ -121,15 +121,7 @@ var level1State={
     for (let i=0;i<16;i++){
           Gamefefe.items.coins.push(new CoinController(4000+i*80, 400 ,'gold'));
       }
-    //Gamefefe.enemies.push(new LionController(3000,-150,'lion'));
-    //Gamefefe.enemies.push(new LionController(11300, -150,'lion'));
-    //Gamefefe.enemies.push(new ArrowController(820, -150,'arrow'));
-    //Gamefefe.enemies.push(new ArrowController(11940,-150,'arrow'));
-    //Gamefefe.enemies.push(new ArrowController(12800, -150,'arrow'));
-    /*for (let j=0;j<6;j++){
-      Gamefefe.score.push(new ScoreController(100+35*j,0,0));
-      Gamefefe.scoreMark.push(0);
-    }*/
+
     for (let m=0;m<3;m++){
       Gamefefe.lives.push(new LifeController(1700+55*m,0,'lives'));
     }

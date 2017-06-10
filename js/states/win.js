@@ -9,7 +9,7 @@ var winState={
 		Gamefefe.game.stage.backgroundColor = '#bfe3f9';
 		Gamefefe.game.add.sprite(950,320, 'windude');
 		Gamefefe.winscore = Gamefefe.game.add.audio('winner');
-      	Gamefefe.winscore.loopFull();
+      	Gamefefe.winscore.play();
 
 		var text='Thank you, hooman';
 		Gamefefe.note = Gamefefe.game.add.text(700, 400, '', {

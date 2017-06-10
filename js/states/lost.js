@@ -1,4 +1,4 @@
-var lostState={
+ var lostState={
 	preload: function(){
 		Gamefefe.game.load.image('loser', 'Assets/Player/p1_hurt.png');
 		Gamefefe.game.load.image('back', 'Assets/back_button.png');
@@ -10,7 +10,7 @@ var lostState={
 		Gamefefe.game.add.sprite(950,320, 'loser');
 		Gamefefe.music.destroy();
 		Gamefefe.losecore = Gamefefe.game.add.audio('lost');
-      	Gamefefe.losecore.loopFull();
+      	Gamefefe.losecore.play();
 
 		var text='You failed me, hooman';
 		Gamefefe.note = Gamefefe.game.add.text(700, 400, '', {
@@ -29,6 +29,5 @@ var lostState={
 	},
 	backToMenu: function(){
 		Gamefefe.game.state.start('menu');
-		Gamefefe.losescore.destroy();
 	}
 }
