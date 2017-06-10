@@ -7,7 +7,15 @@ class LifeController{
     update(){
         if(Gamefefe.isDead){
             this.sprite.kill();
+
             Gamefefe.lives.shift();
+            
+            Gamefefe.timeDead++;
+            if(Gamefefe.timeDead==3){
+                Gamefefe.game.state.start('lost');
+            }else{
+                Gamefefe.players[0].setPosition(0,0);
+            }
             Gamefefe.isDead=false;
         }
     }

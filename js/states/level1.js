@@ -1,4 +1,3 @@
-
 var level1State={
   preload: function(){
       Gamefefe.game.load.tilemap('gamemap', 'Assets/Maps/mapLevel1.json', null, Phaser.Tilemap.TILED_JSON);
@@ -18,7 +17,7 @@ var level1State={
       Gamefefe.game.load.audio('theme', ['Assets/Audio/main_theme.mp3', 'Assets/Audio/main_theme.ogg']);
       Gamefefe.game.load.image('play', 'Assets/play_button.png');
       Gamefefe.game.load.image('arrow','Assets/Enemies/arrow.png');
-    //Gamefefe.game.load.spritesheet('lion','Assets/Enemies/LionBounce.png',245,130);
+      Gamefefe.game.load.spritesheet('lion','Assets/Enemies/LionBounce.png',245,130);
       Gamefefe.game.load.image('lives','Assets/HUD/hud_heartFull3.png');
       Gamefefe.game.load.atlasJSONHash('numbers','Assets/HUD/numbers.png','Assets/HUD/numbers.json');
       Gamefefe.game.load.image('soil','Assets/Tiles/grassHalfMid.png');
@@ -53,7 +52,7 @@ var level1State={
       Gamefefe.playerGroup = Gamefefe.game.add.physicsGroup();
       Gamefefe.doorGroup = Gamefefe.game.add.physicsGroup();
       Gamefefe.coinGroup = Gamefefe.game.add.physicsGroup();
-      
+
       Gamefefe.players =[];
       var playerConstructor = Gamefefe.playerConstructor;
       Gamefefe.players.push(
@@ -120,10 +119,10 @@ var level1State={
     //Gamefefe.enemies.push(new ArrowController(820, -150,'arrow'));
     //Gamefefe.enemies.push(new ArrowController(11940,-150,'arrow'));
     //Gamefefe.enemies.push(new ArrowController(12800, -150,'arrow'));
-    /*for (let j=0;j<6;j++){
+    for (let j=0;j<6;j++){
       Gamefefe.score.push(new ScoreController(100+35*j,0,0));
       Gamefefe.scoreMark.push(0);
-    }*/
+    }
     for (let m=0;m<3;m++){
       Gamefefe.lives.push(new LifeController(1700+55*m,0,'lives'));
     }
@@ -163,18 +162,9 @@ var level1State={
         Gamefefe.playerGroup,
         Gamefefe.enemyGroup,
         function(playerSprite,enemySprite){
-        setTimeout(function(){
-              playerSprite.loadTexture('hurt', 0, false),1000
-            });
-          Gamefefe.isDead=true;
-            playerSprite.kill();
-            Gamefefe.timeDead++;
-            if(Gamefefe.players.length<3){
-                  Gamefefe.players.push(new Gamefefe.playerConstructor(0,0,Gamefefe.configs.PLAYER_CONTROL));
-            }
-            else
-              Gamefefe.game.state.start('lost');
-              Gamefefe.music.destroy();
+
+            Gamefefe.isDead=true;
+
       }
       );
       Gamefefe.game.physics.arcade.overlap(

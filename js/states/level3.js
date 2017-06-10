@@ -119,10 +119,10 @@ var level3State={
     //Gamefefe.enemies.push(new ArrowController(820, -150,'arrow'));
     //Gamefefe.enemies.push(new ArrowController(11940,-150,'arrow'));
     //Gamefefe.enemies.push(new ArrowController(12800, -150,'arrow'));
-    /*for (let j=0;j<6;j++){
+    for (let j=0;j<6;j++){
       Gamefefe.score.push(new ScoreController(100+35*j,0,0));
       Gamefefe.scoreMark.push(0);
-    }*/
+    }
     for (let m=0;m<3;m++){
       Gamefefe.lives.push(new LifeController(1700+55*m,0,'lives'));
     }
@@ -158,22 +158,14 @@ var level3State={
 
 
 
+
       Gamefefe.game.physics.arcade.overlap(
         Gamefefe.playerGroup,
         Gamefefe.enemyGroup,
         function(playerSprite,enemySprite){
-        setTimeout(function(){
-              playerSprite.loadTexture('hurt', 0, false),1000
-            });
-          Gamefefe.isDead=true;
-            playerSprite.kill();
-            Gamefefe.timeDead++;
-            if(Gamefefe.players.length<3){
-                  Gamefefe.players.push(new Gamefefe.playerConstructor(0,0,Gamefefe.configs.PLAYER_CONTROL));
-            }
-            else
-              Gamefefe.game.state.start('lost');
-              Gamefefe.music.destroy();
+
+            Gamefefe.isDead=true;
+
       }
       );
       Gamefefe.game.physics.arcade.overlap(

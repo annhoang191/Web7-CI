@@ -16,9 +16,14 @@ class PlayerController{
     this.timeSinceLastMove=0;
   }
 
+  setPosition(x,y){
+      this.sprite.body.x=x;
+      this.sprite.body.y=y;
+  }
+
   update(){
       Gamefefe.properties.xPosition = this.sprite.body.x;
-      Gamefefe.properties.yPosition = this.sprite.body.y;    
+      Gamefefe.properties.yPosition = this.sprite.body.y;
       Gamefefe.game.physics.arcade.collide(this.sprite, Gamefefe.groundLayer);
       this.timeSinceLastJump += Gamefefe.game.time.physicsElapsed;
       this.timeSinceLastMove+=Gamefefe.game.time.physicsElapsed;
@@ -49,13 +54,13 @@ class PlayerController{
     }
 
     if (this.sprite.body.y>600){
-        Gamefefe.players.shift();
+
         Gamefefe.isDead=true;
         for (var life of Gamefefe.lives){
           life.update();
         }
-        this.sprite.kill();
-        Gamefefe.players.push(new PlayerController(0,0,'player1Walk',Gamefefe.configs.PLAYER_CONTROL));
+        
+
     }
   }
 }
