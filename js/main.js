@@ -26,6 +26,7 @@ window.onload = function(){
   Gamefefe.game.state.add('level2', level2State);
   Gamefefe.game.state.add('level3', level3State);
   Gamefefe.game.state.add('lost', lostState);
+  Gamefefe.game.state.add('win', winState);
   Gamefefe.game.state.start('boot');
 }
 Gamefefe.moveRight={
