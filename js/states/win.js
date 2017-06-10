@@ -2,10 +2,15 @@ var winState={
 	preload: function(){
 		Gamefefe.game.load.image('windude', 'Assets/Player/p1_front.png');
 		Gamefefe.game.load.image('back', 'Assets/back_button.png');
+		Gamefefe.game.load.audio('winner', ['Assets/Audio/winner.wav']);
+
 	},
 	create: function(){
 		Gamefefe.game.stage.backgroundColor = '#bfe3f9';
 		Gamefefe.game.add.sprite(950,320, 'windude');
+		Gamefefe.winscore = Gamefefe.game.add.audio('winner');
+      	Gamefefe.winscore.loopFull();
+
 		var text='Thank you, hooman';
 		Gamefefe.note = Gamefefe.game.add.text(700, 400, '', {
         	font: 'bold 40pt Arial',
@@ -23,5 +28,6 @@ var winState={
 	},
 	backToMenu: function(){
 		Gamefefe.game.state.start('menu');
+		Gamefefe.winscore.destroy();
 	}	
 }

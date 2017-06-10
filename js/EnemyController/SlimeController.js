@@ -20,12 +20,14 @@ class SlimeController extends EnemyController{
     }
 
     if (Gamefefe.moveRight.walk){
+        this.sprite.scale.setTo(-1,1);
         this.sprite.position.x+=2;
         if (this.sprite.position.x-this.x>200 ){
             Gamefefe.moveRight.walk=false;
         }
     }
         if(!Gamefefe.moveRight.walk){
+            this.sprite.scale.setTo(1,1);
             this.sprite.position.x-=2;
             if(this.sprite.position.x-this.x<-200){
             Gamefefe.moveRight.walk=true;

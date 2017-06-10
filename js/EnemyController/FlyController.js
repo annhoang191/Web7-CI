@@ -16,12 +16,14 @@ class FlyController extends EnemyController{
     }
 
     if (Gamefefe.moveRight.fly){
+        this.sprite.scale.setTo(-1,1);
         this.sprite.position.x+=3;
         if (this.sprite.position.x-this.x>400 ){
             Gamefefe.moveRight.fly=false;
         }
     }
         if(!Gamefefe.moveRight.fly){
+            this.sprite.scale.setTo(1,1);
             this.sprite.position.x-=3;
             if(this.sprite.position.x-this.x<-400){
             Gamefefe.moveRight.fly=true;

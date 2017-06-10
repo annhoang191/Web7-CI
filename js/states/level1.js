@@ -15,6 +15,9 @@ var level1State={
       Gamefefe.game.load.spritesheet('door','Assets/Items/door.png',70,140);
       Gamefefe.game.load.spritesheet('weight','Assets/Items/weight.png',70,140);
       Gamefefe.game.load.audio('theme', ['Assets/Audio/main_theme.mp3', 'Assets/Audio/main_theme.ogg']);
+      Gamefefe.game.load.audio('coin', ['Assets/Audio/coins.mp3', 'Assets/Audio/coins.ogg']);
+      Gamefefe.game.load.audio('jump', ['Assets/Audio/jump.mp3', 'Assets/Audio/jump.ogg']);
+
       Gamefefe.game.load.image('play', 'Assets/play_button.png');
       Gamefefe.game.load.image('arrow','Assets/Enemies/arrow.png');
       Gamefefe.game.load.spritesheet('lion','Assets/Enemies/LionBounce.png',245,130);
@@ -53,6 +56,10 @@ var level1State={
       Gamefefe.doorGroup = Gamefefe.game.add.physicsGroup();
       Gamefefe.coinGroup = Gamefefe.game.add.physicsGroup();
 
+      Gamefefe.scoreText=Gamefefe.game.add.text(16,16, 'score: 0', {
+        fontSize:'32px',
+        fill: '#000'
+      });
       Gamefefe.players =[];
       var playerConstructor = Gamefefe.playerConstructor;
       Gamefefe.players.push(
@@ -119,10 +126,10 @@ var level1State={
     //Gamefefe.enemies.push(new ArrowController(820, -150,'arrow'));
     //Gamefefe.enemies.push(new ArrowController(11940,-150,'arrow'));
     //Gamefefe.enemies.push(new ArrowController(12800, -150,'arrow'));
-    for (let j=0;j<6;j++){
+    /*for (let j=0;j<6;j++){
       Gamefefe.score.push(new ScoreController(100+35*j,0,0));
       Gamefefe.scoreMark.push(0);
-    }
+    }*/
     for (let m=0;m<3;m++){
       Gamefefe.lives.push(new LifeController(1700+55*m,0,'lives'));
     }
@@ -149,9 +156,9 @@ var level1State={
       for(var weight of Gamefefe.items.weights){
           weight.playerComing(Gamefefe.xPosition);
       }
-    for (var score of Gamefefe.score){
+    /*for (var score of Gamefefe.score){
       score.update();
-    }
+    }*/
     for (var life of Gamefefe.lives){
       life.update();
     }
@@ -170,14 +177,16 @@ var level1State={
       Gamefefe.game.physics.arcade.overlap(
         Gamefefe.playerGroup,
         Gamefefe.coinGroup,
-        function(playerSprite, coinSprite,number){
-            Gamefefe.scoreUp=true;
-            for (var score of Gamefefe.score){
-              score.update();
-            }
+        function(playerSprite, coinSprite){
+            Gamefefe.score += 1;
+            Gamefefe.scoreText.text = 'Score: ' + Gamefefe.score;
+            Gamefefe.scoreText.fixedToCamera=true;
+            Gamefefe.scoreText.cameraOffset.setTo(16, 16);
             coinSprite.kill();
+
         }
       );
+
       Gamefefe.game.physics.arcade.overlap(
         Gamefefe.playerGroup,
         Gamefefe.doorGroup,

@@ -15,6 +15,10 @@ var level3State={
       Gamefefe.game.load.spritesheet('door','Assets/Items/door.png',70,140);
       Gamefefe.game.load.spritesheet('weight','Assets/Items/weight.png',70,140);
       Gamefefe.game.load.audio('theme', ['Assets/Audio/main_theme.mp3', 'Assets/Audio/main_theme.ogg']);
+      Gamefefe.game.load.audio('coin', ['Assets/Audio/coins.mp3', 'Assets/Audio/coins.ogg']);
+      Gamefefe.game.load.audio('jump', ['Assets/Audio/jump.mp3', 'Assets/Audio/jump.ogg']);
+
+
       Gamefefe.game.load.image('play', 'Assets/play_button.png');
       Gamefefe.game.load.image('arrow','Assets/Enemies/arrow.png');
     //Gamefefe.game.load.spritesheet('lion','Assets/Enemies/LionBounce.png',245,130);
@@ -40,6 +44,10 @@ var level3State={
     Gamefefe.xPosition =0;
       Gamefefe.music = Gamefefe.game.add.audio('theme');
       Gamefefe.music.loopFull();
+      Gamefefe.scoreText=Gamefefe.game.add.text(16,16, 'score: 0', {
+        fontSize:'32px',
+        fill: '#000'
+      });    
       //Create Map
       Gamefefe.game.stage.backgroundColor = '#c6e2ff';
       Gamefefe.map = Gamefefe.game.add.tilemap('gamemap');
@@ -68,9 +76,7 @@ var level3State={
     Gamefefe.enemies.push(new FlyController(11350, 150,'fly'));
 
 
-    Gamefefe.enemies.push(new FishController(200,600,'swim'));
-    Gamefefe.enemies.push(new FishController(1370, 650,'swim'));
-    Gamefefe.enemies.push(new FishController(17070, 640,'swim'));
+    Gamefefe.enemies.push(new FishController(740, 650,'swim'));
     Gamefefe.enemies.push(new SlimeController(2500,200,'walk'));
     Gamefefe.enemies.push(new SlimeController(4170, 350,'walk'));
     Gamefefe.enemies.push( new SlimeController(7230, 350,'walk'));
@@ -94,11 +100,11 @@ var level3State={
     Gamefefe.items.weights.push(new WeightController(16190, -70,'weight'));
     Gamefefe.items.weights.push(new WeightController(15410,-70,'weight' ));
 
-    Gamefefe.items.traps.push(new TileController(14420, 440,'soil'));
-    Gamefefe.items.traps.push(new TileController(3500, 500,'soil'));
-    Gamefefe.items.traps.push(new TileController(6370,280,'soil'));
+    Gamefefe.items.traps.push(new TileController(14420, 440,'soil1'));
+    Gamefefe.items.traps.push(new TileController(3500, 500,'soil1'));
+    Gamefefe.items.traps.push(new TileController(6370,280,'soil1'));
 
-    Gamefefe.items.traps.push(new TileController(9980, 490,'soil'));
+    Gamefefe.items.traps.push(new TileController(9980, 490,'soil1'));
     for (let o=0;o<6;o++){
       Gamefefe.items.traps.push(new TileController(11690+o*70, 210,'soil1'));
     }
@@ -119,10 +125,10 @@ var level3State={
     //Gamefefe.enemies.push(new ArrowController(820, -150,'arrow'));
     //Gamefefe.enemies.push(new ArrowController(11940,-150,'arrow'));
     //Gamefefe.enemies.push(new ArrowController(12800, -150,'arrow'));
-    for (let j=0;j<6;j++){
+    /*for (let j=0;j<6;j++){
       Gamefefe.score.push(new ScoreController(100+35*j,0,0));
       Gamefefe.scoreMark.push(0);
-    }
+    }*/
     for (let m=0;m<3;m++){
       Gamefefe.lives.push(new LifeController(1700+55*m,0,'lives'));
     }
@@ -149,9 +155,9 @@ var level3State={
       for(var weight of Gamefefe.items.weights){
           weight.playerComing(Gamefefe.xPosition);
       }
-    for (var score of Gamefefe.score){
+    /*for (var score of Gamefefe.score){
       score.update();
-    }
+    }*/
     for (var life of Gamefefe.lives){
       life.update();
     }
@@ -171,12 +177,13 @@ var level3State={
       Gamefefe.game.physics.arcade.overlap(
         Gamefefe.playerGroup,
         Gamefefe.coinGroup,
-        function(playerSprite, coinSprite,number){
-            Gamefefe.scoreUp=true;
-            for (var score of Gamefefe.score){
-              score.update();
-            }
+        function(playerSprite, coinSprite){
+            Gamefefe.score += 1;
+            Gamefefe.scoreText.text = 'Score: ' + Gamefefe.score;
+            Gamefefe.scoreText.fixedToCamera=true;
+            Gamefefe.scoreText.cameraOffset.setTo(16, 16);
             coinSprite.kill();
+
         }
       );
       Gamefefe.game.physics.arcade.overlap(

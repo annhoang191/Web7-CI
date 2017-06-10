@@ -49,9 +49,12 @@ Gamefefe.properties={
     height:97
 }
 Gamefefe.enemyKill=false;
-Gamefefe.score=[];
+//Gamefefe.score=[];
 Gamefefe.scoreMark=[];
 Gamefefe.scoreUp = false;
 Gamefefe.isDead = false;
 Gamefefe.lives=[];
 Gamefefe.timeDead=0;
+
+Gamefefe.score=0;
+Gamefefe.scoreText;

@@ -15,13 +15,16 @@ var level2State={
       Gamefefe.game.load.spritesheet('door','Assets/Items/door.png',70,140);
       Gamefefe.game.load.spritesheet('weight','Assets/Items/weight.png',70,140);
       Gamefefe.game.load.audio('theme2', ['Assets/Audio/main_theme2.mp3', 'Assets/Audio/main_theme2.ogg']);
+      Gamefefe.game.load.audio('coin', ['Assets/Audio/coins.mp3', 'Assets/Audio/coins.ogg']);
+      Gamefefe.game.load.audio('jump', ['Assets/Audio/jump.mp3', 'Assets/Audio/jump.ogg']);
+
       Gamefefe.game.load.image('play', 'Assets/play_button.png');
-    Gamefefe.game.load.image('arrow','Assets/Enemies/arrow.png');
-    Gamefefe.game.load.spritesheet('lion','Assets/Enemies/LionBounce.png',245,130);
-    Gamefefe.game.load.image('lives','Assets/HUD/hud_heartFull3.png');
-    Gamefefe.game.load.atlasJSONHash('numbers','Assets/HUD/numbers.png','Assets/HUD/numbers.json');
-    Gamefefe.game.load.image('soil','Assets/Tiles/grassHalfMid.png');
-    Gamefefe.game.load.image('soil1','Assets/Tiles/boxCoinAlt_disabled.png');
+      Gamefefe.game.load.image('arrow','Assets/Enemies/arrow.png');
+      Gamefefe.game.load.spritesheet('lion','Assets/Enemies/LionBounce.png',245,130);
+      Gamefefe.game.load.image('lives','Assets/HUD/hud_heartFull3.png');
+      Gamefefe.game.load.atlasJSONHash('numbers','Assets/HUD/numbers.png','Assets/HUD/numbers.json');
+      Gamefefe.game.load.image('soil','Assets/Tiles/stoneCenter_rounded.png');
+      Gamefefe.game.load.image('soil1','Assets/Tiles/boxCoinAlt_disabled.png');
   },
   create: function(){
       Gamefefe.music = Gamefefe.game.add.audio('theme2');
@@ -40,6 +43,10 @@ var level2State={
         weights: []
     };
     Gamefefe.xPosition =0;
+    Gamefefe.scoreText=Gamefefe.game.add.text(16,16, 'score: 0', {
+        fontSize:'32px',
+        fill: '#000'
+      });
 
       //Create Map
       Gamefefe.game.stage.backgroundColor = '#c6e2ff';
@@ -83,10 +90,12 @@ var level2State={
     Gamefefe.enemies.push(new SnailController(11350, 210,'crawl'));
     Gamefefe.enemies.push(new SnailController(17100, 420,'crawl'));
 
-    Gamefefe.items.traps.push(new TrapController(2350, 533,'spikes'));
-    Gamefefe.items.traps.push(new TrapController(5660, 560,'spikes'));
-    Gamefefe.items.traps.push(new TrapController(9200, 560,'spikes'));
-    Gamefefe.items.traps.push(new TrapController(10600, 420,'spikes'));
+    //Gamefefe.items.traps.push(new TrapController(1600, 393,'spikes'));
+    Gamefefe.items.traps.push(new TrapController(5776, 325,'spikes'));
+    Gamefefe.items.traps.push(new TrapController(10416, 535,'spikes'));
+    Gamefefe.items.traps.push(new TrapController(7528, 466,'spikes'));
+    Gamefefe.items.traps.push(new TrapController(13300, 566,'spikes'));
+    Gamefefe.items.traps.push(new TrapController(17544, 535,'spikes'));
     Gamefefe.items.doors.push(new DoorController(20927, 181,'door'));
     Gamefefe.items.weights.push(new WeightController(300, -70,'weight'));
     Gamefefe.items.weights.push(new WeightController(6830, -70,'weight'));
@@ -94,15 +103,9 @@ var level2State={
     Gamefefe.items.weights.push(new WeightController(16190, -70,'weight'));
     Gamefefe.items.weights.push(new WeightController(15410,-70,'weight' ));
 
-    Gamefefe.items.traps.push(new TileController(14420, 440,'soil'));
-    Gamefefe.items.traps.push(new TileController(3500, 500,'soil'));
-    Gamefefe.items.traps.push(new TileController(6370,280,'soil'));
-
-    Gamefefe.items.traps.push(new TileController(9980, 490,'soil'));
-    for (let o=0;o<6;o++){
-      Gamefefe.items.traps.push(new TileController(11690+o*70, 210,'soil1'));
-    }
-    Gamefefe.items.traps.push(new TileController(13700, 630,'soil1'));
+    Gamefefe.items.traps.push(new TileController(14440, 440,'soil'));
+    Gamefefe.items.traps.push(new TileController(3470, 500,'soil'));
+    Gamefefe.items.traps.push(new TileController(6490,480,'soil'));
 
 
       for (let i=0;i<20;i++){
@@ -119,10 +122,10 @@ var level2State={
     //Gamefefe.enemies.push(new ArrowController(820, -150,'arrow'));
     //Gamefefe.enemies.push(new ArrowController(11940,-150,'arrow'));
     //Gamefefe.enemies.push(new ArrowController(12800, -150,'arrow'));
-    for (let j=0;j<6;j++){
+    /*for (let j=0;j<6;j++){
       Gamefefe.score.push(new ScoreController(100+35*j,0,0));
       Gamefefe.scoreMark.push(0);
-    }
+    }*/
     for (let m=0;m<3;m++){
       Gamefefe.lives.push(new LifeController(1700+55*m,0,'lives'));
     }
@@ -149,9 +152,9 @@ var level2State={
       for(var weight of Gamefefe.items.weights){
           weight.playerComing(Gamefefe.xPosition);
       }
-    for (var score of Gamefefe.score){
+    /*for (var score of Gamefefe.score){
       score.update();
-    }
+    }*/
     for (var life of Gamefefe.lives){
       life.update();
     }
@@ -171,12 +174,13 @@ var level2State={
       Gamefefe.game.physics.arcade.overlap(
         Gamefefe.playerGroup,
         Gamefefe.coinGroup,
-        function(playerSprite, coinSprite,number){
-            Gamefefe.scoreUp=true;
-            for (var score of Gamefefe.score){
-              score.update();
-            }
+        function(playerSprite, coinSprite){
+            Gamefefe.score += 1;
+            Gamefefe.scoreText.text = 'Score: ' + Gamefefe.score;
+            Gamefefe.scoreText.fixedToCamera=true;
+            Gamefefe.scoreText.cameraOffset.setTo(16, 16);
             coinSprite.kill();
+
         }
       );
       Gamefefe.game.physics.arcade.overlap(

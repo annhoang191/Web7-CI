@@ -6,12 +6,14 @@ class FishController extends EnemyController{
     update(){
         if (Gamefefe.moveRight.swim){
             this.sprite.position.x+=3;
+            this.sprite.scale.setTo(-1,1);
             if (this.sprite.position.x-this.x>200){
                 Gamefefe.moveRight.swim=false;
             }
         }
             if(!Gamefefe.moveRight.swim){
                 this.sprite.position.x-=3;
+                this.sprite.scale.setTo(1,1);
                 if(this.sprite.position.x-this.x<-200){
                 Gamefefe.moveRight.swim=true;
                 }

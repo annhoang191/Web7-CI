@@ -25,12 +25,14 @@ class SnailController {
     }
 
         if (Gamefefe.moveRight.crawl){
+            this.sprite.scale.setTo(-1,1);
             this.sprite.position.x+=1;
             if (this.sprite.position.x-this.x>100 ){
                 Gamefefe.moveRight.crawl=false;
             }
         }
             if(!Gamefefe.moveRight.crawl){
+                this.sprite.scale.setTo(1,1);
                 this.sprite.position.x-=1;
                 if(this.sprite.position.x-this.x<-100){
                 Gamefefe.moveRight.crawl=true;

@@ -40,12 +40,14 @@ class PlayerController{
       if(Gamefefe.keyboard.isDown(this.configs.right)
           && this.timeSinceLastMove > 0.005
         ){
+          this.sprite.scale.setTo(1,1);
           this.sprite.x+=8;
           this.timeSinceLastMove = 0;
       }
     else if(Gamefefe.keyboard.isDown(this.configs.left)
          && this.timeSinceLastMove > 0.005
       ){
+        this.sprite.scale.setTo(-1,1);
         this.sprite.x-=8;
         this.timeSinceLastMove = 0;
     }
