@@ -99,7 +99,7 @@ var level2State={
       Gamefefe.enemies.push( new SlimeController(7230, 350,'walk'));
       Gamefefe.enemies.push(new SlimeController(16350, 560,'walk'));
       Gamefefe.enemies.push(new SlimeController(7970, 630,'walk'));
-      Gamefefe.enemies.push(new SnailController(11190,560,'crawl'));
+      //Gamefefe.enemies.push(new SnailController(11190,560,'crawl'));
       Gamefefe.enemies.push(new SnailController(4170, 350,'crawl'));
       Gamefefe.enemies.push(new SnailController(8670, 210,'crawl'));
       Gamefefe.enemies.push(new SnailController(11350, 210,'crawl'));
@@ -126,8 +126,11 @@ var level2State={
 
 
       for (let i=0;i<10;i++){
-          Gamefefe.items.coins.push(new CoinController(700+i*80, 323 ,'bronze'));
+          Gamefefe.items.coins.push(new CoinController(700+i*80, 325 ,'bronze'));
       }
+      for (let i=0;i<5;i++){
+          Gamefefe.items.coins.push(new CoinController(3808+i*80, 325 ,'bronze'));
+      }      
     for (let i=0;i<10;i++){
           Gamefefe.items.coins.push(new CoinController(1600+i*80, 323 ,'silver'));
       }

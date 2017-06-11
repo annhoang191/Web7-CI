@@ -95,10 +95,12 @@ var level3State={
       Gamefefe.enemies.push(new RockController(16190, -70,'weight'));
       Gamefefe.enemies.push(new RockController(15410,-70,'weight' ));
       Gamefefe.enemies.push(new RockController(16410,-70,'weight' ));
-
-
-
-
+      Gamefefe.enemies.push(new RockController(6568,-70,'weight' ));
+      Gamefefe.enemies.push(new RockController(15186,-70,'weight' ));
+      Gamefefe.enemies.push(new RockController(6568,-70,'weight' ));
+      Gamefefe.enemies.push(new RockController(20392,-70,'weight' ));
+      Gamefefe.enemies.push(new RockController(20472,-70,'weight' ));
+      Gamefefe.enemies.push(new RockController(20584,-70,'weight' ));
 
       //Gamefefe.enemies.push(new SlimeController(2500,200,'walk'));
       Gamefefe.enemies.push(new SlimeController(4170, 350,'walk'));
@@ -116,7 +118,10 @@ var level3State={
       Gamefefe.items.traps.push(new TrapController(2350, 533,'spikes'));
       Gamefefe.items.traps.push(new TrapController(5660, 560,'spikes'));
       Gamefefe.items.traps.push(new TrapController(9200, 560,'spikes'));
+      Gamefefe.items.traps.push(new TrapController(9560, 463,'spikes'));
       Gamefefe.items.traps.push(new TrapController(10600, 420,'spikes'));
+      Gamefefe.items.traps.push(new TrapController(13272, 393,'spikes'));
+      Gamefefe.items.traps.push(new TrapController(13744, 393,'spikes'));
       Gamefefe.items.doors.push(new DoorController(20927, 181,'door'));
 
       Gamefefe.items.traps.push(new TileController(14420, 440,'soil1'));
@@ -136,6 +141,9 @@ var level3State={
     for (let i=0;i<6;i++){
           Gamefefe.items.coins.push(new CoinController(1664+i*80, 295 ,'silver'));
       }
+    for (let i=0;i<6;i++){
+          Gamefefe.items.coins.push(new CoinController(17240+i*80, 533 ,'silver'));
+      }      
     for (let i=0;i<9;i++){
           Gamefefe.items.coins.push(new CoinController(2664+i*80, 462 ,'gold'));
       }
@@ -144,7 +152,10 @@ var level3State={
       }
     for (let i=0;i<4;i++){
           Gamefefe.items.coins.push(new CoinController(3681+i*80, 323 ,'silver'));
-      }  
+      } 
+    for (let i=0;i<4;i++){
+          Gamefefe.items.coins.push(new CoinController(15104+i*80, 393 ,'silver'));
+      }         
       Gamefefe.items.coins.push(new CoinController(3114,183, 'gold'));
       Gamefefe.items.coins.push(new CoinController(4545,462, 'gold'));
       Gamefefe.items.coins.push(new CoinController(4768,462, 'gold'));
