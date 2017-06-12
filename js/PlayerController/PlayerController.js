@@ -8,13 +8,15 @@ class PlayerController{
     //this.sprite.animations.add('hurt');
     this.sprite.animations.play('walk',25,true);
     Gamefefe.game.camera.follow(this.sprite);
-    this.sprite.body.bounce.y = 0.2;
-    this.sprite.body.gravity.y = 1000;
+    this.sprite.body.bounce.y = 0;
+    this.sprite.body.gravity.y = 1200;
     this.sprite.body.collideWorldBounds = true;
     this.sprite.anchor.x=0.5;
     this.sprite.anchor.y=0.5;
     this.timeSinceLastJump=0;
     this.timeSinceLastMove=0;
+    Gamefefe.game.load.audio('jump', ['Assets/Audio/jump.mp3']);
+    Gamefefe.jumpSound = Gamefefe.game.add.audio('jump');
   }
 
   setPosition(x,y){
@@ -35,6 +37,8 @@ class PlayerController{
       if(Gamefefe.keyboard.isDown(this.configs.jump)
           && this.sprite.body.onFloor() && Gamefefe.game.time.now > this.timeSinceLastJump
         ){
+          Gamefefe.jumpSound.volume=0.1;
+          Gamefefe.jumpSound.play();
           this.sprite.body.velocity.y=-700;
           this.timeSinceLastJump = 250 + Gamefefe.game.time.now;
       }
